@@ -10,4 +10,5 @@ This Repo is going to hold my solutions to my **Grind 169 questions**. I am comm
 
 # Helpful Resources
 This section will be a list of helpful resources I use to solve the chellenges. 
+- [Study plan](https://www.techinterviewhandbook.org/coding-interview-study-plan/). Use this resource if you want a structured approach to solving DSA challenges. I will be using it in my process. It is structured to be 3 months long so it depends how much time you have (Adapt it to your schedule accordingly)
 - [Data structures and algorithms study cheatsheets](https://www.techinterviewhandbook.org/algorithms/study-cheatsheet/). Use this resource to understand the different types of data structures *e.g Arrays, Hashes, Queues, Linked Lists and others* and most importantly the **Time complexity** associated with each data structure. 
