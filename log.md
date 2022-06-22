@@ -20,18 +20,30 @@
    - **Time Complexity** is O(n)
    - **Space Complexity** is O(n)
   
-##### Implementation
+##### JS Implementation
 ```
 const twoSum = (nums, target) => {
-  let seen = new Map();
+  let seen = {};
 
   for (let i = 0; i <nums.length; i++) {
-    const remaining = target - nums[i];
-    if(seen.has(remaining)) {
-      return [seen.get(remaining), i]
+    const remainder = target - nums[i];
+    if(remainder in seen)) {
+      return [seen[remainder], i]
     } else {
-       seen.set(nums[i],i);
+       seen[nums[i]] = i;
     }
   }
 };
+```
+
+##### Ruby Implementation
+```
+def two_sum(nums, target)
+  seen = {}
+  nums.each_with_index do |num, index|
+    remainder = target - num
+    return [seen[remainder], index] if seen[remainder]
+    seen[num] = index
+  end
+end
 ```
