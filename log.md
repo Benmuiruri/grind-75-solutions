@@ -19,6 +19,7 @@
    - Next we check whether (24-11 = 13) the number 13 is in our hashmap .Because it is we know that the current number and 13 are the two numbers we are looking for, so we return the index of 13 and the index of the number we are currently at, that is (2,3).
    - **Time Complexity** is O(n)
    - **Space Complexity** is O(n)
+   - *Sample input* nums = [2,7,11,15], target = 9
   
 ##### JS Implementation
 ```
@@ -66,7 +67,7 @@ end
    - Then we loop again, until right pointer has reached the end of the array, at which point we return the max_profit.
    - **Time Complexity** is O(n) because we search through the array once.
    - **Space Complexity** is O(1)
-   - [7,1,5,3,6,4]
+   - *Sample input* [7,1,5,3,6,4]
   
 ##### JS Implementation
 ```
