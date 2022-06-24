@@ -159,3 +159,142 @@ var productExceptSelf = function(nums) {
     return res
 };
 ```
+
+### Challenge Four - Valid Anagram
+
+*Input: s = "anagram", t = "nagaram"*
+
+**State Assumptions / Clarification**
+
+- Inputs `s` and `t` consist of lowercase English letters.
+- Input `s` is at least 1 character (which will be always be true)
+- It is not stated that `s` and `t` are same length so first check that and if they are not return `false`.
+
+#### Possible Solutions.
+
+1.  **Possible Optimal solution** _Using a Hash Map to store the characters of s then compare whether characters of t match what is in the Hash_
+   - This solution avoids adding `log(n)` time needed to sort, hence why it is optimal. 
+   - First check if `s.length === t.length`, if not return false.
+   - If they are same length, let's check if they are anagrams. First initialize an empty `counts` hash map
+   - Inside a for loop that populates the `counts` hash. 
+     - Inside the for loop you eiher add counts[c] as 0 or you add a 1 to the the existing count 
+   - Inside a second for loop. check whether all characters in `t` are in in counts[c], if not return false.
+   - Otherwise return false. 
+   
+   - **Time Complexity** is O(n)
+   - **Space Complexity** is O(1)
+  
+2. **Easiest solution** Use JS built in methods (`split`, `sort`, and `join` )
+   - First check if `s.length === t.length`, if not return false.
+   - split the string, then `sort` the the characters, then join the characters.... Then return the comparison of the two using ===. It will be either `true` or `false`. 
+   - However, this easy solution is slower by `log(n)` time because the `sort` method had to traverse the array created by `split`.
+
+   - **Time Complexity** is O(n log(n))
+   - **Space Complexity** is O(1)
+
+##### JS Implementation
+```
+var isAnagram = function(s, t) {
+  if (t.length !== s.length) return false;
+  return s.split('').sort().join('') === t.split('').sort().join('')
+}
+};
+```
+
+```
+var isAnagram = function(s, t) {
+  if (t.length !== s.length) return false;
+  let count = {};
+  for (c of s) {
+    count[c] = (count[c] || 0) + 1;
+  }
+  for (c of t){
+    if (!count[c]) return false;
+    count[c]--; // If we find a character we decrease it's count.
+  }
+  return true.
+}
+};
+```
+
+### Challenge Five - Merge Two Sorted Lists
+
+**State Assumptions / Clarification**
+
+- The inputs are not an array, they are linked lists.
+- The two inputs given will always be sorted so no need to sort.
+- It is possible that both linked lists are of different sizes
+- It is possible to get an empty list for one of both lists.
+
+##### Possible Solutions.
+
+1. *Iterative approach*
+   - This is a more *beginner* implementation, but it is easier for me to wrap my head around it, than the recursive solution. 
+   - First, initialise a dummy `ListNode`, this is what will be returned `let newList = new ListNode(0)`
+   - Then create a `headOfNewList` to maintain a reference to the head of the `newList`, since we shall return what is next of the head. 
+   - Now we enter into a `while` loop to compare the values. While both lists contain elements `(l1 != null && l2 != null)`
+     - If `l1`'s value is smaller than `l2`'s value, assign `newList.next` as `l1` and update `l1` to `l1.next` 
+     - Else `l2`'s value is smaller than `l2`'s value, assign `newList.next` as `l2` and update `l2` to `l2.next` 
+   - After perfroming either of the blocks, update `newList` to be` newList.next` for the next iteration
+   - Outside of the while loop you have two if check's `l1 == null` it means there are no more elements in l1, so we assign all that is remaining in l2 to newList.next .. `newList.next = l2`
+   - Another if check's l2 == null it means there are no more elements in l12 so we assign all that is remaining in l1 to newList.next .. `newList.next = l1 `
+   - Finally, after running the while loop, and the if checks, we have finished updating our newList and we can now return `headOfNewList.next`;
+  
+   - **Time Complexity** is O(n+m), the worst case would is when the required combination is the last combination
+   - **Space Complexity** is O(1)
+  
+2. _Recursive approach_
+   - As with any recursive approach, first set up the base cases. The base cases will be if `l1` is `null` return `l2`, and if `l2` is `null` return `l1`
+   - For the recursion itself, we are going to run an if..else block. 
+     - If l1.val is less than l2.val, move on to l1.next by setting it as the calling the the function but this time passing in the l1.next, and the same node from l2. Then return l1
+     - Else l2.val is less than l1.val, move on to l2.next by setting it as the calling the the function but this time passing in the l2.next, and the same node from l1. Then return l1
+ - By the end of the recursion You will have your answer. 
+   
+   - **Time Complexity** is O(n + m) - At every call of recursion, we are adding one node to the output.
+   - **Space Complexity** is O(n + m) 
+
+##### JS Implementation
+
+```
+var mergeTwoLists = function (l1, l2) {
+    if (l1 == null) return l2;
+    if (l2 == null) return l1;
+
+    if (l1.val < l2.val) {
+        l1.next = mergeTwoLists(l1.next, l2);
+        return l1;
+    }
+    else {
+        l2.next = mergeTwoLists(l1, l2.next);
+        return l2;
+    }
+};
+```
+
+```
+var mergeTwoLists = function (l1, l2) {
+    
+    let newList = new ListNode(0);
+    let headOfNewList = newList
+
+    while (l1 != null && l2 != null) {
+
+        if (l1.val < l2.val) {
+            newList.next = l1;
+            l1 = l1.next;
+        } else {
+            newList.next = l2;
+            l2 = l2.next;
+        }
+        newList = newList.next;
+    }
+
+    if (l1 == null) {
+        newList.next = l2;
+    } else {
+        newList.next = l1;
+    }
+
+    return headOfNewList.next;
+};
+```
