@@ -298,3 +298,53 @@ var mergeTwoLists = function (l1, l2) {
     return headOfNewList.next;
 };
 ```
+
+### Challenge Six - Valid Palindrome
+
+*Input: s = "A man, a plan, a canal: Panama"*
+
+**State Assumptions / Clarification**
+
+- The input is not lowercase, so you need to call `lowercase()` on the input.
+- If the string provided is a sting with a space, once you remove all alphanumeric characters, which includes spaces, you are left with an empty string
+
+##### Possible Solutions.
+
+1. Simple Solution
+   - The straight forward solution is first to define a regex
+   - Second remove all non alphanumeric characters 
+   - Then reverse the string by using the `split()`, `reverse()` and `join()` methods 
+   - **Time Complexity** is O(n)
+   - **Space Complexity** is O(3n) because you need space to create the result of `split()` and `reverse()`
+
+2. **Optimal Solution**
+   - This solution avoids using built in methods, reverse and join.
+   - It also shows something interesting, `you can initialize multiple variables to use in your for loop`. 
+   - First step in the solution is to lowercase the input and use regex to remove alphanumeric characters. 
+   - Next in a `for loop`, initialize two variables,` i==; j = str.length,` then condition is as long as `i<=j` increment `i++` and decrement `j--`
+   - inside the for loop `if charAt(i) !== charAt(j) return false` since it is not a palindrome.
+   - Otherwise if all are equal return true outside the `for loop` because we have checked all characters.   
+  
+   - **Time Complexity** is O(n)
+   - **Space Complexity** is O(1) 
+##### JS Implementation
+
+```
+var isPalindrome = function(s) {
+    let regEx = /[^A-Za-z0-9]/g;
+    let str = s.toLowerCase().replace(regEx, '');
+    let reverseStr = str.split('').reverse().join('');
+    return str === reverseStr;
+};
+```
+*Optimal*
+```
+var isPalindrome = function(s) {
+    let regEx = /[^A-Za-z0-9]/g;
+    let str = s.toLowerCase().replace(regEx, '');
+    for (let i=0; j = str.length -1; i <=j; i++, j--) {
+      if(s.charAt(i) !== s.charAt(j)) return false
+    }
+    return true;
+};
+```
