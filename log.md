@@ -348,3 +348,52 @@ var isPalindrome = function(s) {
     return true;
 };
 ```
+
+### Challenge Seven - Longest Substring Without Repeating Characters
+
+ *Input: s = "abcabcbb"*
+
+**State Assumptions / Clarification**
+
+- It is possible for a string to be of 0 length. In that case, if string is of length 0 then the longest substring is 0
+- The string can also contain numbers or spaces, therefore for a string 'abcd1' the length of longest substring is 4
+
+##### Possible Solutions.
+
+1. **Optimal Solution** Sliding window (two-pointer technique)
+   - Sliding window is a possible technique because we want to keep track of the longest substring as we move from left to right.
+   - We shall use a set to keep track of the substring. 
+   - First, we initialize a left pointer at `index [0]` of the index and a right pointer at `index [0]` of the string. 
+   - Next we initialize the` maxlength as 0`, we shall be updating this `maxlength` depending on the size of the set, and in the end we shall return that `maxlength`.
+   - Inside a while loop, `while (right < s.length)`
+     -  if `(!set.has(s[right]))` it means we have not seen the character so we add it to our set `set.add(s[right])`, increment `right++` so that we check the character in the next `index` and update `maxlength` with the new length of set. `maxLength = Math.max(maxLength, set.size)`
+     -  Else it means that set has that character so we delete the character from set `set.delete(s[left])` and update `left++`. 
+   -  Finally, outside the while loop, after we have checked all characters of the string, we return `maxLength` which we were updating inside the loop. 
+   - **Time Complexity** is O(n) because we passed through the string only once.
+   - **Space Complexity** is O(1)
+
+##### JS Implementation
+
+```
+var lengthOfLongestSubstring = function(s) {
+  if (!s.length) return 0;
+
+  const set = new Set();
+  let left = 0;
+  let right = 0;
+  let maxLength = 0;
+  
+  while (right < s.length) {
+    if (!set.has(s[right])) {
+      set.add(s[right]);   
+      right++;
+        
+      maxLength = Math.max(maxLength, set.size);
+    } else {
+      set.delete(s[left]);
+      left++;
+    }
+  }
+  return maxLength;
+}
+```
