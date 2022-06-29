@@ -397,3 +397,54 @@ var lengthOfLongestSubstring = function(s) {
   return maxLength;
 }
 ```
+
+### Challenge Eight - Valid Parentheses
+
+ *Input: s = "()"*
+
+**State Assumptions / Clarification**
+
+- The minimum length of a string is 1 which in that case you return `false`.
+- The string s contains only parenthesis 
+
+##### Possible Solutions.
+
+1. **Optimal Solution** Using a s`tack data structure` to store paranthesis 
+   - First we check if the input string has 1 or 0 characters we return `false` immediately
+   - Second we check if the input string is odd in length, then we return `false` immediately 
+   - Otherwise we initialize our empty `stack`.
+   - Then in a `for loop`, we traverse through the string characters. 
+     - When we encounter an opening bracket we push the closing bracket into the stack. 
+     - When we encounter a closing bracket we pop the last element to enter the stack and expect it to be the opening bracket. 
+     - For instance, if we have a string `()`, we push `(` into the stack then when we encounter the `)` we pop from the stack expecting a `(` and that would be a valid parenthesis.
+     - However, if we have a string `(}`, we push `(` into the stack and when we encounter `}` we would pop from the stack, expecting `{` hence it would be an invalid parenthesis. 
+   - Outside the for loop, after checking all characters, we expect `stack.length === 0` to be true if the string was valid and false if string was not valid
+   - **Time Complexity** is O(n) because we passed through the string only once.
+   - **Space Complexity** is O(1)
+
+##### JS Implementation
+
+```
+var isValid = function(s) {
+    if (s.length < 2) return false 
+    if (s.length % 2 !== 0) return false
+    const stack = [];
+    
+    for (let i = 0 ; i < s.length ; i++) {
+        let c = s.charAt(i);
+        switch(c) {
+            case '(': stack.push(')');
+                break;
+            case '[': stack.push(']');
+                break;
+            case '{': stack.push('}');
+                break;
+            default:
+                if (c !== stack.pop()) {
+                    return false;
+                }
+        }
+    }
+    return stack.length === 0;
+};
+```
