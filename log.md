@@ -448,3 +448,41 @@ var isValid = function(s) {
     return stack.length === 0;
 };
 ```
+
+### Challenge Nine - Ransom Note
+
+*Input: ransomNote = "a", magazine = "b"*
+
+**State Assumptions / Clarification**
+
+- The length of ransomNote and magazine will always be greater than or equal to 1 so no need to check if either is 0
+- Both ransomNote and magazine consist of lowercase English letters. 
+
+##### Possible Solutions.
+
+1. **Optimal Solution** 
+   - First we create an empty `lookup` hashmap 
+   - Then we loop through the letters of magazine while updating `lookup` in the end we have something like { a:1, b:1 }
+   - In a second for loop we check if the any of the letters of ransomNote are not in lookup, we return false, otherwise we decrement the count of letter. 
+   - In the event all letters of ransomNote are in magazine, we will decrement the counter of each letter until all letters are accounted for and outside the for loop we return `true` 
+
+   - **Time Complexity** is O(n)
+   - **Space Complexity** is O(n)
+
+##### JS Implementation
+
+```
+var canConstruct = function(ransomNote, magazine) {
+    const lookup = {};
+    for(let letter of magazine) {
+          lookup[letter] ? lookup[letter]++ : lookup[letter]=1
+    }
+    for(let letter of ransomNote) {
+        if(!lookup[letter]) {
+            return false;
+        } 
+        lookup[letter]--;
+    }
+    return true;
+};
+```
