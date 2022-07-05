@@ -550,3 +550,45 @@ var generateParenthesis = function(n) {
     return result
 };
 ```
+
+### Challenge 11 - Single Number
+
+_Given a non-empty array of integers nums, every element appears twice except for one. Find that single one._
+_Input: nums = [2,2,1]_
+_Output: 1_
+
+**State Assumptions / Clarification**
+
+- nums array will have at least one number, in the case it has one number, we simply return that number
+
+##### Possible Solutions.
+
+1. **Optimal Solution - Using a Hashmap**
+
+   - First we check if nums.length === 1 it means we only have that number so we return it. 
+   - Otherwise we create an empty count `hashmap` that keeps track of how many instances of each number we see. Something like {1:1, 2:2, 3:2}
+   - We create that hashmap by using `for..of` to go through each element in the `array`. 
+   - Once we have our hashmap, we use a `for..in` to loop through all keys in the count hashmap and return the key whose value is 1.
+
+   - **Time Complexity** is O(1) 
+   - **Space Complexity** is O(1)
+
+##### JS Implementation
+
+```
+var singleNumber = function(nums) {
+    
+    if (nums.length === 1) return nums[0];
+    
+    let count = {};
+    for (num of nums) {
+        count[num] = (count[num] || 0) + 1;
+    }
+    
+    for (const key in count) {
+       if(count[key] === 1) {
+           return key
+       }
+    }
+};
+```
