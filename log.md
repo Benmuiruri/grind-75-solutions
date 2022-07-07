@@ -592,3 +592,44 @@ var singleNumber = function(nums) {
     }
 };
 ```
+
+### Challenge 12 - Contains Duplicate
+
+_Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.e._
+_Input: nums = [1,2,3,1]_
+_Output: true_
+
+**State Assumptions / Clarification**
+
+- nums array will have at least one number, in the case it has one number, we simply return false.
+
+##### Possible Solutions.
+
+1. **Optimal Solution - Using a Hashmap**
+
+   - First we check if nums.length === 1 it means no value is going to appear twice. 
+   - Otherwise we create an empty count `hashmap` that keeps track of how many instances of each number we see. Something like {1:1, 2:2, 3:2}
+   - We create that hashmap by using `for..of` to go through each element in the `array`. 
+   - Once we have our hashmap, we use a `for..in` to loop through all keys in the count hashmap and return true if any of the keys is greater than one (that will be two or more).
+   - Otherwise if we loop through the `hashmap` and all numbers appear only once, we return `false`
+
+   - **Time Complexity** is O(1) 
+   - **Space Complexity** is O(1)
+
+##### JS Implementation
+
+```
+var containsDuplicate = function(nums) {
+    if (nums.length === 1) return false;
+    let count = {}
+    for (num of nums) {
+        count[num] = (count[num] || 0) + 1;
+    }
+    
+    for (const key in count) {
+        if(count[key] > 1)
+        return true
+    }
+    return false
+};
+```
