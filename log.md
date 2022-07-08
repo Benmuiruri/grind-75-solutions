@@ -613,7 +613,7 @@ _Output: true_
    - Once we have our hashmap, we use a `for..in` to loop through all keys in the count hashmap and return true if any of the keys is greater than one (that will be two or more).
    - Otherwise if we loop through the `hashmap` and all numbers appear only once, we return `false`
 
-   - **Time Complexity** is O(1) 
+   - **Time Complexity** is O(n) 
    - **Space Complexity** is O(1)
 
 ##### JS Implementation
@@ -631,5 +631,38 @@ var containsDuplicate = function(nums) {
         return true
     }
     return false
+};
+```
+
+### Challenge 13 - Maximum Depth of Binary Tree (104)
+
+_Given the root of a binary tree, return its maximum depth._
+_Input: root = [3,9,20,null,null,15,7]_
+_Output: 3_
+
+**State Assumptions / Clarification**
+
+- Number of nodes can be 0 in this case, the depth of the tree is 0
+
+##### Possible Solutions.
+
+1. **Optimal Solution - Recursion**
+
+   - Like many challenges involving trees we are going to use recusion. 
+   - First, if root is undefined or null return 0 because there is no treee, hence the height is 0.
+   - Otherwise, we are going to use recursion to call the maxDepth function on the left side and on the right hand side. 
+   - Then after we recursively check the depth of the right side and left side, we return Math.max(left,right) + 1 (We add 1 becuase of the root node)
+
+   - **Time Complexity** is O(n) 
+   - **Space Complexity** is O(n)
+
+##### JS Implementation
+
+```
+var maxDepth = function(root) {
+  if (!root) return 0;
+  let left = maxDepth(root.left);
+  let right = maxDepth(root.right);
+  return Math.max(left, right) + 1;
 };
 ```
