@@ -711,3 +711,47 @@ def invert_tree(root)
   root
 end
 ```
+
+### Challenge 15 - Lowest Common Ancestor of a Binary Search Tree (235)
+
+_Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST._
+_Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8_
+_Output: 6_
+
+**State Assumptions / Clarification**
+
+- All nodes are equal. No 2 values are the saem.
+- The root will always have at least 2 values, in that case just return root 
+
+##### Possible Solutions.
+
+1. **Optimal Solution - Recursion**
+
+   - Like many challenges involving trees we are going to use recusion. 
+   - In an `if else` block, check if `root.val` is greater than both `p.val` and `q.val`. If that is the case, they are in the left side so inside the if return recursive call of (`root.left, p, q`)
+   - `Else if ``root.val` is less than both `p.val` and `q.val`. If that is the case, they are in the right side so inside the if return recursive call of (`root.right, p, q`)
+   - otherwise just return `root` 
+   - **Time Complexity** is O(n) 
+   - **Space Complexity** is O(n)
+
+##### JS Implementation
+
+```
+var lowestCommonAncestor = function(root, p, q) {
+  if (root.val > p.val && root.val > q.val) {
+    return lowestCommonAncestor(root.left, p, q);
+  } else if (root.val < p.val && root.val < q.val) {
+    return lowestCommonAncestor(root.right, p, q);
+  }
+  return root;
+};
+```
+##### Ruby Implementation
+
+```
+def lowest_common_ancestor(root, p, q)
+  return lowest_common_ancestor(root.left, p, q) if root.val > p.val && root.val > q.val
+  return lowest_common_ancestor(root.right, p, q) if root.val < p.val && root.val < q.val
+  return root
+end
+```
