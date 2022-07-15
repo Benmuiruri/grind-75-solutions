@@ -666,3 +666,48 @@ var maxDepth = function(root) {
   return Math.max(left, right) + 1;
 };
 ```
+
+### Challenge 14 - Invert Binary Tree (226)
+
+_Given the root of a binary tree, invert the tree, and return its root._
+_Input: root = [4,2,7,1,3,6,9]_
+_Output: [4,7,2,9,6,3,1]_
+
+**State Assumptions / Clarification**
+
+- Root can be an empty array, in that case, return an empty null
+
+##### Possible Solutions.
+
+1. **Optimal Solution - Recursion**
+
+   - Like many challenges involving trees we are going to use recusion. 
+   - First, if `!root` return null
+   - Otherwise we swap the left hand side of the tree with the right hand of the tree.
+   - Then we go into the the left hand subtree and do the same, we swap the left hand side of the subtree with the right hand of the subtree. (Until we have swapped all on the left hand side)
+   - Then we go into the the right hand subtree and do the same, we swap the left hand side of the subtree with the right hand of the subtree. (Until we have swapped all on the right hand side).
+   - At this point we will have swapped the whole tree, so we return the root
+
+   - **Time Complexity** is O(n) 
+   - **Space Complexity** is O(n)
+
+##### JS Implementation
+
+```
+var invertTree = function(root) {
+    if (!root) return null;
+    [root.left, root.right] = [root.right, root.left];
+    invertTree(root.left)
+    invertTree(root.right);
+    return root
+};
+```
+##### Ruby Implementation
+
+```
+def invert_tree(root)
+  return unless root
+  root.left, root.right = invert_tree(root.right), invert_tree(root.left) 
+  root
+end
+```
