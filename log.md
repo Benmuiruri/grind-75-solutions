@@ -755,3 +755,49 @@ def lowest_common_ancestor(root, p, q)
   return root
 end
 ```
+
+### Challenge 16 - Binary Search(704)
+
+_Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1._
+_nums = [-1,0,3,5,9,12], target = 9_
+_Output: 4_
+
+**State Assumptions / Clarification**
+
+- Nums wll always include 1 number so no need to check length of `nums`. instead just check if target is not `nums[0]` return -1
+- All integers are unique inside `nums`
+- The elements inside `nums` are sorted in ascending order, no need to sort since that would significantly increase the execution time.
+
+##### Possible Solutions.
+
+1. **Optimal Solution - Using a Hashmap**
+
+   - First we check is `nums` has one element and that element is not the target we return -1 
+   - Otherwise, we create an empty `hashmap 'seen'`. 
+   - Then we loop through the elements in `nums` while populating our `hashmap`. We want *key value* pairs where the key is the index of the element in the `nums array` and the value is the element. After the loop we shall have `{ '0': -1, '1': 0, '2': 3, '3': 5, '4': 9, '5': 12 }`
+   - Then iterate through the `hashmap` checking whether `seen[key]` is our value. Basically we will check whether `seen[0] === element`. If it is we return that key which is the index of the element in the nums array. In the example we would get `seen[4] === 9` hence we return 4
+   - If the element is not in the hashmap we return 0. 
+   - **Time Complexity** is O(n) 
+   - **Space Complexity** is O(n)
+
+##### JS Implementation
+
+```
+var search = function(nums, target) {
+    if (nums.length === 1 && target != nums[0]) return -1
+    
+    let seen = {};
+    
+    for (let i=0; i<nums.length; i++) {
+        seen[i] = nums[i];
+    }
+    
+    for (const key in seen) {
+        if (seen[key] === target ) {
+            return key
+        }
+    }
+    
+    return -1;
+};
+```
