@@ -770,7 +770,7 @@ _Output: 4_
 
 ##### Possible Solutions.
 
-1. **Optimal Solution - Using a Hashmap**
+1. **Solution - Using a Hashmap**
 
    - First we check is `nums` has one element and that element is not the target we return -1 
    - Otherwise, we create an empty `hashmap 'seen'`. 
@@ -780,7 +780,14 @@ _Output: 4_
    - **Time Complexity** is O(n) 
    - **Space Complexity** is O(n)
 
-##### JS Implementation
+2. **Binary Search Solution**
+   - Divide the Array by two by defining the start and end as index 0 and nums.length - 1
+   - In a while loop, 
+   - Check whether the element in the middle is the target. 
+   - If it is not, and the mid number is less than the target set start as mid + 1 then repeat the process.
+   - If it is not, and the mid number is greater than the target set end as mid - 1 then repeat the process.
+  
+##### Hashmap JS Implementation
 
 ```
 var search = function(nums, target) {
@@ -801,3 +808,20 @@ var search = function(nums, target) {
     return -1;
 };
 ```
+
+#### Binary Search Implementation 
+
+var search = function(nums, target) {
+  start = 0, end = nums.length -1;
+  while (start <= 0) {
+    let mid = Math.floor((start+end)/2)
+    if (nums[mid] === target) {
+      return mid;
+    } else if (nums[mid] < target) {
+      start = mid + 1;
+    } else {
+      end = mid - 1;
+    }
+  }
+  return -1;
+}
