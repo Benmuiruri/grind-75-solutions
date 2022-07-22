@@ -515,14 +515,14 @@ _Output: ["((()))","(()())","(())()","()(())","()()()"]_
    - Please refer to [Bangar](https://leetcode.com/problems/generate-parentheses/discuss/1402685/Javascript-easyandclean-solution) whose solution helped me get unstuck.
    - First we define an `empty result array`, which is what we shall return.
    - Next we define a recusive function that an empty sring- temp, left, and right => `const backtracking = (temp, left, right) => { }`
-   - Inside the recursive function, the base case is if (left === 0 && right === 0) then push and empty string and return. 
-   - Now for the rest of the recursive function, 
+   - Inside the recursive function, the base case is if (left === 0 && right === 0) then push and empty string and return.
+   - Now for the rest of the recursive function,
      - if left > 0, call backtracking with (temp + '(', left-1, and right). Left decrements because we have added a left.
-     - if right > 0, call backtracking with (temp + '(', left, and right-1). Right decrements because we have added a right. 
+     - if right > 0, call backtracking with (temp + '(', left, and right-1). Right decrements because we have added a right.
    - Now that we have defined out backtracking function, we call it with ('', n,n)
    - Eventually we will return result. When left and right are 0 and we have our updated temp string inside result array like `[()]`
 
-   - **Time Complexity** is O(n log n) 
+   - **Time Complexity** is O(n log n)
    - **Space Complexity** is O(n)
 
 ##### JS Implementation
@@ -536,17 +536,17 @@ var generateParenthesis = function(n) {
            result.push(temp)
             return
         }
-    
+
         if(left > 0) {
             backtracking(temp + '(', left-1, right)
         }
-    
+
         if(right > left) {
             backtracking(temp + ')', left, right-1)
         }
     }
     backtracking('', n, n)
-    
+
     return result
 };
 ```
@@ -565,26 +565,26 @@ _Output: 1_
 
 1. **Optimal Solution - Using a Hashmap**
 
-   - First we check if nums.length === 1 it means we only have that number so we return it. 
+   - First we check if nums.length === 1 it means we only have that number so we return it.
    - Otherwise we create an empty count `hashmap` that keeps track of how many instances of each number we see. Something like {1:1, 2:2, 3:2}
-   - We create that hashmap by using `for..of` to go through each element in the `array`. 
+   - We create that hashmap by using `for..of` to go through each element in the `array`.
    - Once we have our hashmap, we use a `for..in` to loop through all keys in the count hashmap and return the key whose value is 1.
 
-   - **Time Complexity** is O(1) 
+   - **Time Complexity** is O(1)
    - **Space Complexity** is O(1)
 
 ##### JS Implementation
 
 ```
 var singleNumber = function(nums) {
-    
+
     if (nums.length === 1) return nums[0];
-    
+
     let count = {};
     for (num of nums) {
         count[num] = (count[num] || 0) + 1;
     }
-    
+
     for (const key in count) {
        if(count[key] === 1) {
            return key
@@ -607,13 +607,13 @@ _Output: true_
 
 1. **Optimal Solution - Using a Hashmap**
 
-   - First we check if nums.length === 1 it means no value is going to appear twice. 
+   - First we check if nums.length === 1 it means no value is going to appear twice.
    - Otherwise we create an empty count `hashmap` that keeps track of how many instances of each number we see. Something like {1:1, 2:2, 3:2}
-   - We create that hashmap by using `for..of` to go through each element in the `array`. 
+   - We create that hashmap by using `for..of` to go through each element in the `array`.
    - Once we have our hashmap, we use a `for..in` to loop through all keys in the count hashmap and return true if any of the keys is greater than one (that will be two or more).
    - Otherwise if we loop through the `hashmap` and all numbers appear only once, we return `false`
 
-   - **Time Complexity** is O(n) 
+   - **Time Complexity** is O(n)
    - **Space Complexity** is O(1)
 
 ##### JS Implementation
@@ -625,7 +625,7 @@ var containsDuplicate = function(nums) {
     for (num of nums) {
         count[num] = (count[num] || 0) + 1;
     }
-    
+
     for (const key in count) {
         if(count[key] > 1)
         return true
@@ -648,12 +648,12 @@ _Output: 3_
 
 1. **Optimal Solution - Recursion**
 
-   - Like many challenges involving trees we are going to use recusion. 
+   - Like many challenges involving trees we are going to use recusion.
    - First, if root is undefined or null return 0 because there is no treee, hence the height is 0.
-   - Otherwise, we are going to use recursion to call the maxDepth function on the left side and on the right hand side. 
+   - Otherwise, we are going to use recursion to call the maxDepth function on the left side and on the right hand side.
    - Then after we recursively check the depth of the right side and left side, we return Math.max(left,right) + 1 (We add 1 becuase of the root node)
 
-   - **Time Complexity** is O(n) 
+   - **Time Complexity** is O(n)
    - **Space Complexity** is O(n)
 
 ##### JS Implementation
@@ -681,14 +681,14 @@ _Output: [4,7,2,9,6,3,1]_
 
 1. **Optimal Solution - Recursion**
 
-   - Like many challenges involving trees we are going to use recusion. 
+   - Like many challenges involving trees we are going to use recusion.
    - First, if `!root` return null
    - Otherwise we swap the left hand side of the tree with the right hand of the tree.
    - Then we go into the the left hand subtree and do the same, we swap the left hand side of the subtree with the right hand of the subtree. (Until we have swapped all on the left hand side)
    - Then we go into the the right hand subtree and do the same, we swap the left hand side of the subtree with the right hand of the subtree. (Until we have swapped all on the right hand side).
    - At this point we will have swapped the whole tree, so we return the root
 
-   - **Time Complexity** is O(n) 
+   - **Time Complexity** is O(n)
    - **Space Complexity** is O(n)
 
 ##### JS Implementation
@@ -702,12 +702,13 @@ var invertTree = function(root) {
     return root
 };
 ```
+
 ##### Ruby Implementation
 
 ```
 def invert_tree(root)
   return unless root
-  root.left, root.right = invert_tree(root.right), invert_tree(root.left) 
+  root.left, root.right = invert_tree(root.right), invert_tree(root.left)
   root
 end
 ```
@@ -721,17 +722,17 @@ _Output: 6_
 **State Assumptions / Clarification**
 
 - All nodes are equal. No 2 values are the saem.
-- The root will always have at least 2 values, in that case just return root 
+- The root will always have at least 2 values, in that case just return root
 
 ##### Possible Solutions.
 
 1. **Optimal Solution - Recursion**
 
-   - Like many challenges involving trees we are going to use recusion. 
+   - Like many challenges involving trees we are going to use recusion.
    - In an `if else` block, check if `root.val` is greater than both `p.val` and `q.val`. If that is the case, they are in the left side so inside the if return recursive call of (`root.left, p, q`)
-   - `Else if ``root.val` is less than both `p.val` and `q.val`. If that is the case, they are in the right side so inside the if return recursive call of (`root.right, p, q`)
-   - otherwise just return `root` 
-   - **Time Complexity** is O(n) 
+   - ` Else if ``root.val ` is less than both `p.val` and `q.val`. If that is the case, they are in the right side so inside the if return recursive call of (`root.right, p, q`)
+   - otherwise just return `root`
+   - **Time Complexity** is O(n)
    - **Space Complexity** is O(n)
 
 ##### JS Implementation
@@ -746,6 +747,7 @@ var lowestCommonAncestor = function(root, p, q) {
   return root;
 };
 ```
+
 ##### Ruby Implementation
 
 ```
@@ -772,45 +774,46 @@ _Output: 4_
 
 1. **Solution - Using a Hashmap**
 
-   - First we check is `nums` has one element and that element is not the target we return -1 
-   - Otherwise, we create an empty `hashmap 'seen'`. 
-   - Then we loop through the elements in `nums` while populating our `hashmap`. We want *key value* pairs where the key is the index of the element in the `nums array` and the value is the element. After the loop we shall have `{ '0': -1, '1': 0, '2': 3, '3': 5, '4': 9, '5': 12 }`
+   - First we check is `nums` has one element and that element is not the target we return -1
+   - Otherwise, we create an empty `hashmap 'seen'`.
+   - Then we loop through the elements in `nums` while populating our `hashmap`. We want _key value_ pairs where the key is the index of the element in the `nums array` and the value is the element. After the loop we shall have `{ '0': -1, '1': 0, '2': 3, '3': 5, '4': 9, '5': 12 }`
    - Then iterate through the `hashmap` checking whether `seen[key]` is our value. Basically we will check whether `seen[0] === element`. If it is we return that key which is the index of the element in the nums array. In the example we would get `seen[4] === 9` hence we return 4
-   - If the element is not in the hashmap we return 0. 
-   - **Time Complexity** is O(n) 
+   - If the element is not in the hashmap we return 0.
+   - **Time Complexity** is O(n)
    - **Space Complexity** is O(n)
 
 2. **Binary Search Solution**
    - Divide the Array by two by defining the start and end as index 0 and nums.length - 1
-   - In a while loop, 
-   - Check whether the element in the middle is the target. 
+   - In a while loop,
+   - Check whether the element in the middle is the target.
    - If it is not, and the mid number is less than the target set start as mid + 1 then repeat the process.
    - If it is not, and the mid number is greater than the target set end as mid - 1 then repeat the process.
-  
+
 ##### Hashmap JS Implementation
 
 ```
 var search = function(nums, target) {
     if (nums.length === 1 && target != nums[0]) return -1
-    
+
     let seen = {};
-    
+
     for (let i=0; i<nums.length; i++) {
         seen[i] = nums[i];
     }
-    
+
     for (const key in seen) {
         if (seen[key] === target ) {
             return key
         }
     }
-    
+
     return -1;
 };
 ```
 
-#### Binary Search Implementation 
+#### Binary Search Implementation
 
+```
 var search = function(nums, target) {
   start = 0, end = nums.length -1;
   while (start <= 0) {
@@ -825,3 +828,47 @@ var search = function(nums, target) {
   }
   return -1;
 }
+```
+
+### Challenge 16 - Balanced Binary Tree (110)
+
+_Given a binary tree, determine if it is height-balanced._
+_Input: root = [3,9,20,null,null,15,7]_
+_Output: true_
+
+**State Assumptions / Clarification**
+
+- The number of nodes at the start could be zero in that case just return false
+
+##### Possible Solutions.
+
+1. **Optimal Solution - Recursion**
+
+   - Like many challenges involving trees we are going to use recusion.
+   - We are going to check the depth of a tree and if the difference between the depth of the left side and the depth of the right side is greater than one, we return false. 
+   - For this challenge, we shall make use of the maxDepth function we used to get the maximum depth of a tree. The `maxDepth` function will allow us to check the height of the left side and the right side. Then we can compare the two. 
+   - So in the `isBlabanced` function, we fist check `if (!root) return true`
+   - Otherwise, we get the absolute difference between the `maxDepth(left) - maxDepth(right)` and if it is greater than 1 we return false 
+   - Next we recursively continue down the tree by `return isBalanced(root.left) && isBalanced(root.right)`
+   - **Time Complexity** is O(n)
+   - **Space Complexity** is O(n)
+
+##### JS Implementation
+
+```
+var isBalanced = function(root) {
+  if(!root) return true 
+  if(Max.abs(maxDepth(root.left) - maxDepth(root.right) > 1) {
+    return false
+  }
+  return isBalanced(root.left) && isBalanced(root.right)
+}
+
+var maxDepth = function(root) {
+  if (!root) return 0;
+  let left = maxDepth(root.left);
+  let right = maxDepth(root.right);
+  return Math.max(left, right) + 1;
+};
+```
+
